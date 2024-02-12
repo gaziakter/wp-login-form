@@ -13,9 +13,25 @@
 
  Class Wp_login_form{
     public function __construct() {
-        add_action('init', array($this, 'custom_logoin_function'));
+        add_action('login_enqueue_scripts', array($this, 'custom_logoin_function'));
     }
 
+    public function custom_logoin_function(){
+        ?>
+        <style type="text/css">
+            #login h1 a,
+            .login h1 a{
+                background-image: url(<?php echo plugin_dir_url( __FILE__ ).'assets/images/gazi_akter.png' ?>);
+                height: auto;
+                width: 200px;
+                background-size: 200px;
+                background-repeat: no-repeat;
+                padding-bottom: 30px;
+            }
+        </style>
+        <?php
+        
+    }
 
  }
  new Wp_login_form();
