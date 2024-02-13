@@ -14,6 +14,7 @@
  Class Wp_login_form{
     public function __construct() {
         add_action('login_enqueue_scripts', array($this, 'custom_logoin_function'));
+        add_action('login_head', array($this, 'custom_login_text_function'));
     }
 
     public function custom_logoin_function(){
@@ -30,7 +31,19 @@
             }
         </style>
         <?php
-        
+    }
+
+    public function custom_login_text_function(){
+        add_filter( 'gettext', 'custom_text_login_form', 10, 3);
+        function custom_text_login_form($translated_text, $text_to_translate, $textdomain){
+            if('Username or Email Address'==  $text_to_translate){
+                $translated_text = __('Your Login key', 'wp-login-form');
+            } elseif('Password'==  $text_to_translate){
+                $translated_text = __('Passcode', 'wp-login-form');
+            }
+            return $translated_text;
+        }
+
     }
 
  }
