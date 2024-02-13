@@ -15,6 +15,8 @@
     public function __construct() {
         add_action('login_enqueue_scripts', array($this, 'custom_logoin_function'));
         add_action('login_head', array($this, 'custom_login_text_function'));
+        add_filter( 'login_headerurl', array($this, 'custom_login_url') );
+        add_filter( 'login_headertitle', array($this, 'custom_login_title') );
     }
 
     public function custom_logoin_function(){
@@ -43,7 +45,14 @@
             }
             return $translated_text;
         }
+    }
 
+    public function custom_login_url(){
+        return home_url( );
+    }
+
+    public function custom_login_title(){
+        return get_bloginfo( );
     }
 
  }
